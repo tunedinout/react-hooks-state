@@ -25,8 +25,8 @@ function useStateHook(initialState) {
     const store = { state: state, listeners: [] };
     
     store.setState = setState.bind(store);
-    useCustom = useCustom.bind(store);
-    return useCustom;
+    
+    return useCustom.bind(store);
 }
 
 
