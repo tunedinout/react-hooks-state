@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import useGlobalState from '../../globalState';
 import './dataForm.css'
+import { useFormInput } from '../hooks/formInput';
+import {addColor,addItem } from '../../actions/actions';
 
 
 
 function DataForm() {
-    let [state, setState] = useGlobalState();
-    const [inputValue, setInputValue] = useState('');
+    let dispatch = useGlobalState()[1];
+    //reuse of custom hooks
+    const [inputValue, setInputValue] = useFormInput();
     return (
         <div className="data-form">
 
@@ -15,18 +18,17 @@ function DataForm() {
                 className="submit-btn"
                 type='submit'
                 onClick={() => {
-                    let items = state.items;
-                    items.push(inputValue);
-                    setState({ items: items });
+                    
+                    const item = inputValue;
+                    dispatch(addItem(item));
                     setInputValue('');
                 }} > Add Item </button>
             <button
                 className="submit-btn_color"
                 type='submit'
                 onClick={() => {
-                    let colors = state.colors;
-                    colors.push(inputValue);
-                    setState({ colors });
+                    const color = inputValue;
+                    dispatch(addColor(color));
                     setInputValue('');
                 }} > Add Color </button>
         </div>
